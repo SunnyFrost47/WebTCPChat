@@ -1,0 +1,24 @@
+﻿@model IEnumerable<TCPChat.Models.ChatMessage>
+
+<div id="doLog">
+    <table class="table" style="table-layout:fixed; width:100%">
+        <tr class="header">
+            <td><p>Id Сообщения</p></td>
+            <td><p>NickName отправителя</p></td>
+            <td><p>Сообщение</p></td>
+            <td><p>Дата и время</p></td>
+            <td><p>Id Пользователя</p></td>
+            <td></td>
+        </tr>
+        @foreach (TCPChat.Models.ChatMessage m in Model)
+        {
+            <tr style="max-width:300px">
+                <td><p>@m.Id</p></td>
+                <td style="word-wrap:break-word"><p>@m.Nick</p></td>
+                <td style="word-wrap:break-word"><p>@m.Data</p></td>
+                <td><p>@m.Date</p></td>
+                <td><p>@m.UserId</p></td>
+            </tr>
+        }
+    </table>
+</div>

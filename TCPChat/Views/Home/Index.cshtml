@@ -1,0 +1,98 @@
+﻿@model IEnumerable<TCPChat.Models.ChatMessage>
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="row">
+    <div class="col-md-8">
+        @if (Request.IsAuthenticated)
+        {
+            if (ViewBag.Role == "adm")
+            {
+                <p></p>
+                <div id="chatLog">
+                    <table class="table" style="table-layout:fixed; width:100%">
+                        <tr class="header">
+                            <td><p>Id Сообщения</p></td>
+                            <td><p>NickName отправителя</p></td>
+                            <td><p>Сообщение</p></td>
+                            <td><p>Дата и время</p></td>
+                            <td><p>Id Пользователя</p></td>
+                            <td></td>
+                        </tr>
+                        @foreach (TCPChat.Models.ChatMessage m in Model)
+                        {
+                            <tr>
+                                <td><p>@m.Id</p></td>
+                                <td style="word-wrap:break-word"><p>@m.Nick</p></td>
+                                <td style="word-wrap:break-word"><p>@m.Data</p></td>
+                                <td><p>@m.Date</p></td>
+                                <td><p>@m.UserId</p></td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            }
+            <p></p>
+        }
+        else
+        {
+            <p><div class="alert-info jumbotron" style="display:inline-block;">
+                Для входа в ChatRoom необходимо войти в аккаунт
+            </div></p>
+        }
+    </div>
+    <div class="col-md-4">
+        <p><div class="btn btn-success btn-md col-md-push-1">
+            @Html.ActionLink("LogIn ChatRoom", "ChatRoom", "Home")
+        </div></p>
+        @if (Request.IsAuthenticated)
+        {
+            if (ViewBag.Role == "adm")
+            {
+                <p></p>
+                using (Ajax.BeginForm("ChatLog", new AjaxOptions { UpdateTargetId = "chatLog" }))
+                {
+                        <p><input type="text" name="nick" placeholder="NickName" autocomplete="off" /></p>
+                        <p><input type="text" name="userId" placeholder="Id Пользователя" autocomplete="off" /></p>
+                        <p><button name="action" value="search">Найти</button></p>
+                }
+                <p>
+
+                </p>
+            }
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~Scripts/jquery.unobtrusive-ajax.min.js")
+}
+
+<!--<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>-->
